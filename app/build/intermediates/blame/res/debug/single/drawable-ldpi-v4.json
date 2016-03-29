@@ -4,6 +4,10 @@
         "source": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\src\\main\\res\\drawable-ldpi\\icon.png"
     },
     {
+        "merged": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\poibackground.png",
+        "source": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\src\\main\\res\\drawable-ldpi\\poibackground.png"
+    },
+    {
         "merged": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\thoughtbubble.png",
         "source": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\src\\main\\res\\drawable-ldpi\\thoughtbubble.png"
     }

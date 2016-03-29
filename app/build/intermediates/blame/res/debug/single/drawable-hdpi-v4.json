@@ -6,5 +6,9 @@
     {
         "merged": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\thoughtbubble.png",
         "source": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\src\\main\\res\\drawable-hdpi\\thoughtbubble.png"
+    },
+    {
+        "merged": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\poibackground.png",
+        "source": "D:\\Users\\mlaliber\\Documents\\androidProjects\\ARView\\app\\src\\main\\res\\drawable-hdpi\\poibackground.png"
     }
 ]

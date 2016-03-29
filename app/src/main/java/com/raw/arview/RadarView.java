@@ -33,7 +33,7 @@ public class RadarView implements LocationListener {
     /**
      * You can change the radar color from here.
      */
-    static int radarColor = Color.argb(100, 93, 246, 246);
+    static int radarColor = Color.argb(100, 0, 0, 0);
 
     /**
      * Your current location is defined later
@@ -44,8 +44,8 @@ public class RadarView implements LocationListener {
     /*
      * pass the same set of coordinates to plot POI's on radar
      * */
-    double[] latitudes = new double[]{50.632515, 50.631889};
-    double[] longitudes = new double[]{3.022788, 3.021039};
+    double[] latitudes = new double[]{50.622647, 50.62209};
+    double[] longitudes = new double[]{3.039774, 3.045477};
     protected LocationManager locationManager;
 
     public float[][] coordinateArray = new float[latitudes.length][1];
@@ -77,7 +77,10 @@ public class RadarView implements LocationListener {
         circleOriginX = originX + RADIUS;
         circleOriginY = originY + RADIUS;
 
-        range = (float) arView.convertToPix(10) * 50;
+        /**
+         * Range of the RadarView
+         */
+        range = (float) arView.convertToPix(10) * 30;
         mscale = range / arView.convertToPix((int) RADIUS);
     }
 
@@ -191,7 +194,7 @@ public class RadarView implements LocationListener {
          * */
         currentLocation.setLatitude(location.getLatitude());
         currentLocation.setLongitude(location.getLongitude());
-        currentLocation.setAltitude((location.getAltitude()));
+        currentLocation.setAltitude(location.getAltitude());
         Log.e("lat: " + currentLocation.getLatitude() + " long: " + currentLocation.getLongitude() + " alt: " + currentLocation.getAltitude(), "RADAR DEBUG");
     }
 
@@ -217,6 +220,8 @@ public class RadarView implements LocationListener {
                 break;
             case LocationProvider.AVAILABLE:
                 newStatus = "AVAILABLE";
+                break;
+            default:
                 break;
         }
     }

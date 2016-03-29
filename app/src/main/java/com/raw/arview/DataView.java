@@ -34,7 +34,6 @@ import com.raw.utils.RadarLines;
  * We are working to include the elevation and height factors.
  */
 
-
 public class DataView implements LocationListener {
 
     RelativeLayout[] locationMarkerView;
@@ -48,8 +47,8 @@ public class DataView implements LocationListener {
      *  Array or Array lists of latitude and longitude to plot
      *  In your case you can populate with an ArrayList
      * */
-    double[] latitudes = new double[]{50.632515, 50.631889};
-    double[] longitudes = new double[]{3.022788, 3.021039};
+    double[] latitudes = new double[]{50.622647, 50.62209};
+    double[] longitudes = new double[]{3.039774, 3.045477};
     protected LocationManager locationManager;
 
     int[] nextXofText;
@@ -61,7 +60,7 @@ public class DataView implements LocationListener {
     Location currentLocation = new Location("provider");
     Location destinedLocation = new Location("provider");
 
-    String[] places = new String[]{"test1", "test2"};
+    String[] places = new String[]{"Esquermes", "Montebello"};
     /**
      * is the view Inited?
      */
@@ -122,15 +121,22 @@ public class DataView implements LocationListener {
             locationTextView = new TextView[latitudes.length];
             nextXofText = new int[latitudes.length];
 
+            /**
+             * Set POI's View
+             */
             for (int i = 0; i < latitudes.length; i++) {
-                layoutParams[i] = new RelativeLayout.LayoutParams(10, 10);
-                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(50, 30);
+                layoutParams[i] = new RelativeLayout.LayoutParams(places[i].length(), 110);
+                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(150, 130);
 
                 subjectImageView[i] = new ImageView(_context);
                 locationMarkerView[i] = new RelativeLayout(_context);
                 locationTextView[i] = new TextView(_context);
                 locationTextView[i].setText(checkTextToDisplay(places[i]));
                 locationTextView[i].setTextColor(Color.WHITE);
+
+                /**
+                 * set POI's Icon
+                 */
                 subjectImageView[i].setBackgroundResource(R.drawable.icon);
                 locationMarkerView[i].setId(i);
                 subjectImageView[i].setId(i);
@@ -140,7 +146,11 @@ public class DataView implements LocationListener {
                 subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
                 layoutParams[i].setMargins(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2, 0, 0);
                 locationMarkerView[i] = new RelativeLayout(_context);
-                locationMarkerView[i].setBackgroundResource(R.drawable.thoughtbubble);
+
+                /**
+                 * set POI's Background
+                 */
+                locationMarkerView[i].setBackgroundResource(R.drawable.poibackground);
                 subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
                 subjectTextViewParams[i].topMargin = 15;
                 locationMarkerView[i].setLayoutParams(layoutParams[i]);
@@ -279,13 +289,16 @@ public class DataView implements LocationListener {
                     bearing = 360 + bearing;
                 }
                 bearings[i] = bearing;
-
+                Log.e("Bearing: " + bearings[i], "BEARING DEBUG");
             }
             radarPoints = new RadarView(this._context, this, bearings);
             this.camera = camera;
             width = widthInit;
             height = heightInit;
 
+            /**
+             * Set Radar's Lines
+             */
             lrl.set(0, -RadarView.RADIUS);
             lrl.rotate(Camera.DEFAULT_VIEW_ANGLE / 2);
             lrl.add(rx + RadarView.RADIUS, ry + RadarView.RADIUS);
@@ -309,7 +322,9 @@ public class DataView implements LocationListener {
         this.pitch = pitch;
         this.roll = roll;
 
-        // Draw Radar
+        /**
+         *  Draw Radar
+         */
         String dirTxt = "";
         int bearing = (int) this.yaw;
         int range = (int) (this.yaw / (360f / 16f));
@@ -327,13 +342,16 @@ public class DataView implements LocationListener {
 
         dw.paintObj(radarPoints, rx + PaintUtils.XPADDING, ry + PaintUtils.YPADDING, -this.yaw, 1, this.yaw);
         dw.setFill(false);
-        dw.setColor(Color.argb(100, 220, 0, 0));
+
+        /**
+         * Draw Radar Lines
+         */
+        dw.setColor(Color.argb(100, 255, 255, 255));
         dw.paintLine(lrl.x, lrl.y, rx + RadarView.RADIUS, ry + RadarView.RADIUS);
         dw.paintLine(rrl.x, rrl.y, rx + RadarView.RADIUS, ry + RadarView.RADIUS);
         dw.setColor(Color.rgb(255, 255, 255));
         dw.setFontSize(12);
         radarText(dw, "" + bearing + ((char) 176) + " " + dirTxt, rx + RadarView.RADIUS, ry - 5, true, false, -1);
-
 
         drawTextBlock(dw);
     }
@@ -376,6 +394,12 @@ public class DataView implements LocationListener {
 
     }
 
+    /**
+     * Check if the string contains more than 15 characters
+     * if so, write the first 15 characters then "..."
+     * @param str
+     * @return
+     */
     String checkTextToDisplay(String str) {
 
         if (str.length() > 15) {
@@ -439,7 +463,7 @@ public class DataView implements LocationListener {
         currentLocation.setLatitude(location.getLatitude());
         currentLocation.setLongitude(location.getLongitude());
         currentLocation.setAltitude((location.getAltitude()));
-        Log.e("lat: " + currentLocation.getLatitude() + "long: " + currentLocation.getLongitude() + "alt: " + currentLocation.getAltitude(), "DATAVIEW DEBUG");
+        Log.e("lat: " + currentLocation.getLatitude() + " long: " + currentLocation.getLongitude() + " alt: " + currentLocation.getAltitude(), "DATAVIEW DEBUG");
     }
 
     @Override
