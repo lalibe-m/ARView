@@ -1,0 +1,66 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:2:1-22:12
+	xmlns:android
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:2:11-69
+	package
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:3:7-31
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:5:7-32
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+	android:versionCode
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:4:7-30
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+uses-sdk
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:6:5-43
+	android:targetSdkVersion
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:6:15-40
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.CAMERA
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:7:22-62
+uses-permission#android.permission.WAKE_LOCK
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:8:2-65
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:8:19-62
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:9:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:10:22-78
+application
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:12:5-21:19
+	android:label
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:12:48-80
+	android:icon
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:12:18-47
+activity#com.raw.arview.ARView
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:13:9-19:20
+	android:screenOrientation
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:13:42-79
+	android:label
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:14:19-51
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:13:19-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:15:13-18:29
+action#android.intent.action.MAIN
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:17:17-77
+	android:name
+		ADDED from D:\Users\mlaliber\Documents\androidProjects\ARView\app\src\main\AndroidManifest.xml:17:27-74
