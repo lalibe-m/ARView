@@ -70,7 +70,7 @@ public class RadarView implements LocationListener {
         calculateMetrics();
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200, 0, this);
         currentLocation = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
     }
 

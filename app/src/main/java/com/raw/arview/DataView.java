@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,13 +37,13 @@ import com.raw.utils.RadarLines;
 
 public class DataView implements LocationListener {
 
-    RelativeLayout[] locationMarkerView;
-    ImageView[] subjectImageView;
     RelativeLayout.LayoutParams[] layoutParams;
+    RelativeLayout[] locationMarkerView;
     RelativeLayout.LayoutParams[] subjectImageViewParams;
+    ImageView[] subjectImageView;
     RelativeLayout.LayoutParams[] subjectTextViewParams;
-    RelativeLayout.LayoutParams[] distanceViewParams;
     TextView[] locationTextView;
+    RelativeLayout.LayoutParams[] distanceViewParams;
     TextView[] distanceTextView;
 
     /*
@@ -105,7 +106,7 @@ public class DataView implements LocationListener {
         this._context = ctx;
 
         locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200, 0, this);
         currentLocation = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
     }
 
@@ -115,71 +116,85 @@ public class DataView implements LocationListener {
 
     public void init(int widthInit, int heightInit, android.hardware.Camera camera, DisplayMetrics displayMetrics, RelativeLayout rel) {
         try {
-
-            locationMarkerView = new RelativeLayout[latitudes.length];
             layoutParams = new RelativeLayout.LayoutParams[latitudes.length];
+            locationMarkerView = new RelativeLayout[latitudes.length];
+
             subjectImageViewParams = new RelativeLayout.LayoutParams[latitudes.length];
-            subjectTextViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             subjectImageView = new ImageView[latitudes.length];
-            //distanceViewParams = new RelativeLayout.LayoutParams[latitudes.length];
+
+            subjectTextViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             locationTextView = new TextView[latitudes.length];
+
+            //distanceViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             //distanceTextView = new TextView[latitudes.length];
+
             nextXofText = new int[latitudes.length];
 
             /**
              * Set POI's View
              */
             for (int i = 0; i < latitudes.length; i++) {
-                layoutParams[i] = new RelativeLayout.LayoutParams(10, 10);
-                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(50, 30);
-                //distanceViewParams[i] = new RelativeLayout.LayoutParams(50, 50);
-
-                subjectImageView[i] = new ImageView(_context);
-                locationMarkerView[i] = new RelativeLayout(_context);
-                locationTextView[i] = new TextView(_context);
-                locationTextView[i].setText(checkTextToDisplay(places[i]));
-                locationTextView[i].setTextColor(Color.WHITE);
 
                 /**
-                 * TODO Show the Distance in the POI's View
+                 * POI's Layout Creation
                  */
-                //distanceTextView[i] = new TextView(_context);
-                //distanceTextView[i].setText();
-                //distanceTextView[i].setTextColor(Color.WHITE);
-
-                /**
-                 * set POI's Icon
-                 */
-                subjectImageView[i].setBackgroundResource(R.drawable.icon);
-                locationMarkerView[i].setId(i);
-                subjectImageView[i].setId(i);
-                locationTextView[i].setId(i);
-                subjectImageViewParams[i] = new RelativeLayout.LayoutParams(40, 40);
-                subjectImageViewParams[i].topMargin = 15;
-                subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+                layoutParams[i] = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams[i].setMargins(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2, 0, 0);
                 locationMarkerView[i] = new RelativeLayout(_context);
+                locationMarkerView[i].setBackgroundResource(R.drawable.poibackground);
+                locationMarkerView[i].setId(i);
+                locationMarkerView[i].setLayoutParams(layoutParams[i]);
 
                 /**
-                 * set POI's Background
+                 * POI's Icon Creation
                  */
-                locationMarkerView[i].setBackgroundResource(R.drawable.poibackground);
-                subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-                subjectTextViewParams[i].topMargin = 15;
-                //distanceViewParams[i].addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-                locationMarkerView[i].setLayoutParams(layoutParams[i]);
+                subjectImageViewParams[i] = new RelativeLayout.LayoutParams(100, 100);
+                subjectImageViewParams[i].setMargins(15, 15, 15, 15);
+                subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+                subjectImageView[i] = new ImageView(_context);
+                subjectImageView[i].setBackgroundResource(R.drawable.icon);
+                subjectImageView[i].setId(i);
                 subjectImageView[i].setLayoutParams(subjectImageViewParams[i]);
-                locationTextView[i].setLayoutParams(subjectTextViewParams[i]);
-                //distanceTextView[i].setLayoutParams(distanceViewParams[i]);
-
                 locationMarkerView[i].addView(subjectImageView[i]);
+
+                /**
+                 * POI's Title Creation
+                 */
+                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(300, 100);
+                subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_RIGHT, subjectImageView[i].getId());
+                subjectTextViewParams[i].topMargin = 15;
+                locationTextView[i] = new TextView(_context);
+                locationTextView[i].setText(checkTextToDisplay(places[i]));
+                locationTextView[i].setTextSize(20);
+                locationTextView[i].setTextColor(Color.WHITE);
+                locationTextView[i].setId(i);
+                locationTextView[i].setLayoutParams(subjectTextViewParams[i]);
                 locationMarkerView[i].addView(locationTextView[i]);
+                                /**
+                 * TODO POI's Distance Creation
+                 */
+                /*distanceViewParams[i] = new RelativeLayout.LayoutParams(50, 50);
+                distanceViewParams[i].addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+                distanceTextView[i] = new TextView(_context);
+                distanceTextView[i].setText();
+                distanceTextView[i].setTextColor(Color.WHITE);
+                distanceTextView[i].setId(i);
+                distanceTextView[i].setLayoutParams(distanceViewParams[i];
+                locationMarkerView[i].addView(distanceTextView[i]);
+                */
+
+                //locationMarkerView[i] = new RelativeLayout(_context);
+                //locationMarkerView[i].setLayoutParams(layoutParams[i]);
+
+                /**
+                 * Adding the components to the View
+                 */
                 rel.addView(locationMarkerView[i]);
 
-                subjectImageView[i].setClickable(false);
+                /*subjectImageView[i].setClickable(false);
                 locationTextView[i].setClickable(false);
-
-                subjectImageView[i].setOnClickListener(new OnClickListener() {
+                */
+                /*subjectImageView[i].setOnClickListener(new OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -279,7 +294,7 @@ public class DataView implements LocationListener {
                         }
 
                     }
-                });
+                });*/
             }
 
 
@@ -288,7 +303,6 @@ public class DataView implements LocationListener {
             this.displayMetrics = displayMetrics;
             this.degreetopixelWidth = this.displayMetrics.widthPixels / camera.getParameters().getHorizontalViewAngle();
             this.degreetopixelHeight = this.displayMetrics.heightPixels / camera.getParameters().getVerticalViewAngle();
-            System.out.println("camera.getParameters().getHorizontalViewAngle()==" + camera.getParameters().getHorizontalViewAngle());
 
             bearings = new double[latitudes.length];
 
@@ -304,7 +318,6 @@ public class DataView implements LocationListener {
                     bearing = 360 + bearing;
                 }
                 bearings[i] = bearing;
-                Log.e("Bearing: " + bearings[i], "BEARING DEBUG");
             }
             radarPoints = new RadarView(this._context, this, bearings);
             this.camera = camera;
@@ -325,7 +338,7 @@ public class DataView implements LocationListener {
         }
 
 		/*
-		 * initialization is done, so dont call init() again.
+         * initialization is done, so dont call init() again.
 		 * */
         isInit = true;
     }
@@ -392,8 +405,8 @@ public class DataView implements LocationListener {
 
             if (isLocationBlock) {
                 layoutParams[count].setMargins((int) (x - w / 2 - 10), (int) (y - h / 2 - 10), 0, 0);
-                layoutParams[count].height = 90;
-                layoutParams[count].width = 90;
+                layoutParams[count].height = 100;
+                layoutParams[count].width = 400;
                 locationMarkerView[count].setLayoutParams(layoutParams[count]);
 
             } else {
@@ -412,6 +425,7 @@ public class DataView implements LocationListener {
     /**
      * Check if the string contains more than 15 characters
      * if so, write the first 15 characters then "..."
+     *
      * @param str
      * @return
      */
