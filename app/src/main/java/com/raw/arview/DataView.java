@@ -41,7 +41,9 @@ public class DataView implements LocationListener {
     RelativeLayout.LayoutParams[] layoutParams;
     RelativeLayout.LayoutParams[] subjectImageViewParams;
     RelativeLayout.LayoutParams[] subjectTextViewParams;
+    RelativeLayout.LayoutParams[] distanceViewParams;
     TextView[] locationTextView;
+    TextView[] distanceTextView;
 
     /*
      *  Array or Array lists of latitude and longitude to plot
@@ -57,7 +59,7 @@ public class DataView implements LocationListener {
     double[] bearings;
     float angleToShift;
     float yPosition;
-    Location currentLocation = new Location("provider");
+    Location currentLocation;
     Location destinedLocation = new Location("provider");
 
     String[] places = new String[]{"Esquermes", "Montebello"};
@@ -91,7 +93,7 @@ public class DataView implements LocationListener {
     public float pixelstodp;
     public float bearing;
 
-    public int[][] coordinateArray = new int[2][2];
+    public int[][] coordinateArray = new int[latitudes.length][2];
     public int locationBlockWidth;
     public int locationBlockHeight;
 
@@ -104,6 +106,7 @@ public class DataView implements LocationListener {
 
         locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        currentLocation = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
     }
 
     public boolean isInited() {
@@ -118,21 +121,31 @@ public class DataView implements LocationListener {
             subjectImageViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             subjectTextViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             subjectImageView = new ImageView[latitudes.length];
+            //distanceViewParams = new RelativeLayout.LayoutParams[latitudes.length];
             locationTextView = new TextView[latitudes.length];
+            //distanceTextView = new TextView[latitudes.length];
             nextXofText = new int[latitudes.length];
 
             /**
              * Set POI's View
              */
             for (int i = 0; i < latitudes.length; i++) {
-                layoutParams[i] = new RelativeLayout.LayoutParams(places[i].length(), 110);
-                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(150, 130);
+                layoutParams[i] = new RelativeLayout.LayoutParams(10, 10);
+                subjectTextViewParams[i] = new RelativeLayout.LayoutParams(50, 30);
+                //distanceViewParams[i] = new RelativeLayout.LayoutParams(50, 50);
 
                 subjectImageView[i] = new ImageView(_context);
                 locationMarkerView[i] = new RelativeLayout(_context);
                 locationTextView[i] = new TextView(_context);
                 locationTextView[i].setText(checkTextToDisplay(places[i]));
                 locationTextView[i].setTextColor(Color.WHITE);
+
+                /**
+                 * TODO Show the Distance in the POI's View
+                 */
+                //distanceTextView[i] = new TextView(_context);
+                //distanceTextView[i].setText();
+                //distanceTextView[i].setTextColor(Color.WHITE);
 
                 /**
                  * set POI's Icon
@@ -153,9 +166,11 @@ public class DataView implements LocationListener {
                 locationMarkerView[i].setBackgroundResource(R.drawable.poibackground);
                 subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
                 subjectTextViewParams[i].topMargin = 15;
+                //distanceViewParams[i].addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
                 locationMarkerView[i].setLayoutParams(layoutParams[i]);
                 subjectImageView[i].setLayoutParams(subjectImageViewParams[i]);
                 locationTextView[i].setLayoutParams(subjectTextViewParams[i]);
+                //distanceTextView[i].setLayoutParams(distanceViewParams[i]);
 
                 locationMarkerView[i].addView(subjectImageView[i]);
                 locationMarkerView[i].addView(locationTextView[i]);
@@ -463,7 +478,6 @@ public class DataView implements LocationListener {
         currentLocation.setLatitude(location.getLatitude());
         currentLocation.setLongitude(location.getLongitude());
         currentLocation.setAltitude((location.getAltitude()));
-        Log.e("lat: " + currentLocation.getLatitude() + " long: " + currentLocation.getLongitude() + " alt: " + currentLocation.getAltitude(), "DATAVIEW DEBUG");
     }
 
     @Override

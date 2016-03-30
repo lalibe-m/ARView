@@ -38,7 +38,7 @@ public class RadarView implements LocationListener {
     /**
      * Your current location is defined later
      */
-    Location currentLocation = new Location("provider");
+    Location currentLocation;
     Location destinedLocation = new Location("provider");
 
     /*
@@ -48,7 +48,7 @@ public class RadarView implements LocationListener {
     double[] longitudes = new double[]{3.039774, 3.045477};
     protected LocationManager locationManager;
 
-    public float[][] coordinateArray = new float[latitudes.length][1];
+    public float[][] coordinateArray = new float[latitudes.length][2];
 
     float angleToShift;
     public float degreetopixel;
@@ -71,6 +71,7 @@ public class RadarView implements LocationListener {
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        currentLocation = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
     }
 
     public void calculateMetrics() {
@@ -134,6 +135,7 @@ public class RadarView implements LocationListener {
             destinedLocation.setLongitude(longitudes[i]);
             float[] z = new float[1];
             z[0] = 0;
+
             Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), destinedLocation.getLatitude(), destinedLocation.getLongitude(), z);
             bearing = currentLocation.bearingTo(destinedLocation);
 
@@ -175,6 +177,7 @@ public class RadarView implements LocationListener {
         z[0] = 0;
         Location.distanceBetween(source.getLatitude(), source.getLongitude(), destination
                 .getLatitude(), source.getLongitude(), z);
+
         float[] x = new float[1];
         Location.distanceBetween(source.getLatitude(), source.getLongitude(), source
                 .getLatitude(), destination.getLongitude(), x);
@@ -195,7 +198,6 @@ public class RadarView implements LocationListener {
         currentLocation.setLatitude(location.getLatitude());
         currentLocation.setLongitude(location.getLongitude());
         currentLocation.setAltitude(location.getAltitude());
-        Log.e("lat: " + currentLocation.getLatitude() + " long: " + currentLocation.getLongitude() + " alt: " + currentLocation.getAltitude(), "RADAR DEBUG");
     }
 
     @Override
